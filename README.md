@@ -9,6 +9,10 @@ This script was inspired by the work done by Robert Rodriguez (@Cyb3rWard0g) of 
 
 https://posts.specterops.io/real-time-sysmon-processing-via-ksql-and-helk-part-1-initial-integration-88c2b6eac839
 
+## Get-SystemExecAuthenticodeSignature
+
+Get-SystemExecAuthenticodeSignature checks both the system32 and SysWOW64 system directories for unsigned binaries. Unsigned binaries in these folders can be evidence of abusing the `admin$` share to move laterally around the environment by an advisary. Unsigned binaries should be investigated for their legitimacy.
+
 ## Get-TriageForensics
 
 Uses available PowerShell modules to collect forensic data from a host. The data is used to triage the machine, determine if there is a true incident and if further investigation is required on that host.
