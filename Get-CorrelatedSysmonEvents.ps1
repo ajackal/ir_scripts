@@ -9,8 +9,6 @@ An optional parameter; defines which event type generates an event for correlati
 An optional parameter; defines which event to correlate to the generating event. Default is Event ID 1, Process Creation Event.
 .PARAMETER OutputFilePath
 An optional parameter; defines the output file path to save the results. Default is "C:\temp\"
-.PARAMETER OutputFileType
-An optional parameter; defines the output file type. Options: JSON (default), TXT.
 .EXAMPLE
 CorrelateSysmonEvents.ps1 -StartTime 10 -GeneratingEvent 3 -CorrelatingEvent 1 -OutputFilePath "C:\temp\correlation_results"
 .NOTES
@@ -36,8 +34,7 @@ Param(
         [DateTime]$StartTime = (Get-Date) - (New-TimeSpan -Minutes 5),
         [int]$GeneratingEvent = 3,
         [int]$CorrelatingEvent = 1,
-        [string]$OutputFilePath = "C:\temp\",
-        [string]$OutputFileType = "JSON"
+        [string]$OutputFilePath = "C:\temp\"
 )
 
 Write-Host "Looking as far back as " $StartTime
@@ -165,25 +162,12 @@ function WriteCorrelatedEventsToJson($CorrelatedEvents)
 }
 
 
-function WriteCorrelatedEventsToTxt($CorrelatedEvents)
-{
-    Write-Host "Saving results to TXT file."
-    $CorrelatedEvents | ForEach-Object{$TxtStringOut = $_.key + '`n' + $_.value; Out-File -InputObject $TxtStringOut -Append $OutputFilePath"\SysmonCorrelatedEventLog.txt"}
-}
-
 function main ()
 {
     $GeneratingEvents = GetSysmonGeneratingEvents
     $CorrelatingEvents = GetSysmonCorrelatingEvents
     $CorrelatedEvents = CorrelateAllMessages $GeneratingEvents $CorrelatingEvents
-    if("JSON" -in $OutputFileType)
-    {
-        WriteCorrelatedEventsToJson $CorrelatedEvents
-    }
-    elseif("TXT" -in $OutputFileType)
-    {
-        WriteCorrelatedEventsToTxt $CorrelatedEvents
-    }
+    WriteCorrelatedEventsToJson $CorrelatedEvents
 }
 
 main
