@@ -53,7 +53,7 @@ function ParseMessageEvents($RawEvents)
 function CreateUniqueEvents($ParsedMessages)
 {
     $global:ProcessGuids = @($ParsedMessages.ProcessGuid | Select-Object -Unique)
-    Write-Host "Number of unique generating events found: " %$ProcessGuids.Count
+    Write-Host "Number of unique generating events found: " $ProcessGuids.Count
     $ParsedMessages | ForEach-Object{$GeneratingEventsMessage += @{$_.ProcessGuid= $_}}
     return $GeneratingEventsMessage
 }
@@ -65,7 +65,7 @@ function GetSysmonGeneratingEvents()
     {
         $RawGeneratingEvents = Get-WinEvent -FilterHashTable @{
                                 LogName = "Microsoft-Windows-Sysmon/Operational";
-                                StartTime = $StartTime
+                                StartTime = $StartTime;
                                 ID = $GeneratingEvent
                             }
     
@@ -85,7 +85,7 @@ function GetSysmonCorrelatingEvents()
     {
         $RawCorrelatingEvents = Get-WinEvent -FilterHashTable @{
                                 LogName = "Microsoft-Windows-Sysmon/Operational";
-                                StartTime = $StartTime
+                                StartTime = $StartTime;
                                 ID = $CorrelatingEvent
                             }
     
