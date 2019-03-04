@@ -22,7 +22,9 @@ to the internet. With appropriate whitelisting in the Sysmon configuration this 
 high fidelity alerting. This behavior could indicate a reverse shell being launched and
 connecting to Command and Control infrastructure (C2).
 
-This script was inspired by XXX # TODO
+This script was inspired by the work done by Robert Rodriguez (@Cyb3rWard0g) of SpectreOps with his 3 part post "Real-Time Sysmon Processing via KSQL and HELK"
+
+https://posts.specterops.io/real-time-sysmon-processing-via-ksql-and-helk-part-1-initial-integration-88c2b6eac839
 
 Author: Chris Miller
 Date Created: 20190115
