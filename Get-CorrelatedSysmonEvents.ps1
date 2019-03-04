@@ -113,7 +113,7 @@ function GetSysmonCorrelatingEvents()
                 "ParentParentProcess" = $ParsedCorrelatingEventsMessageIndex.$ParentParentProcessGuid
                 "PowerShellEvents" = $PowerShellCorrelatingEvents
             }
-            $CorrelatedEvents += @{$ChildProcessGuid=$ChildProcessInfo}
+            $CorrelatingEvents += @{$ChildProcessGuid=$ChildProcessInfo}
 
         }
     }
@@ -168,7 +168,7 @@ function WriteCorrelatedEventsToJson($CorrelatedEvents)
 function WriteCorrelatedEventsToTxt($CorrelatedEvents)
 {
     Write-Host "Saving results to TXT file."
-    $CorrelatedEvents | Out-File -Append $OutputFilePath"\SysmonCorrelatedEventLog.txt"
+    $CorrelatedEvents | ForEach-Object{$TxtStringOut = $_.key + '`n' + $_.value; Out-File -InputObject $TxtStringOut -Append $OutputFilePath"\SysmonCorrelatedEventLog.txt"}
 }
 
 function main ()
